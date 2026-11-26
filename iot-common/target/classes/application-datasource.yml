@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    dynamic:
+      primary: master # 默认主库
+      strict: false   # 未匹配到数据源时默认走 primary
+      datasource:
+        master:
+          url: jdbc:mysql://127.0.0.1:3306/iot_master?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        iot:
+          url: jdbc:mysql://127.0.0.1:3306/iot_device_data?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # 自定义多 Redis 配置
+  custom-redis:
+    auth:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      password: 123456
+    biz:
+      host: 127.0.0.1
+      port: 6379
+      database: 1
+      password: 123456
+
+  # 自定义多 RabbitMQ 配置（利用 vhost 隔离）
+  custom-rabbitmq:
+    inner:
+      host: 127.0.0.1
+      port: 5672
+      username: guest
+      password: guest
+      virtual-host: /inner
+    device:
+      host: 127.0.0.1
+      port: 5672
+      username: guest
+      password: guest
+      virtual-host: /device
